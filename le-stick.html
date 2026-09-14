@@ -1017,7 +1017,7 @@
         ui.range.classList.add(kind === "error" ? "flash-error" : "flash-hit");
       }
 
-      function giveFeedback(kind, withSound = true) {
+      function giveFeedback(kind) {
         ui.errorMarker.hidden = kind !== "error";
         if (kind === "error") {
           exercises[state.activeIndex].errors += 1;
@@ -1026,7 +1026,7 @@
           ui.errorMarker.style.left = `${50 + state.x * 46}%`;
           ui.errorMarker.style.top = `${50 + state.y * 46}%`;
         }
-        if (withSound) playFeedback(kind);
+        playFeedback(kind);
         flashRange(kind);
       }
 
@@ -1382,8 +1382,7 @@
                   clearTrail();
                   trailPausedUntilCenter = true;
                 }
-                const isWaypoint = state.targetIndex + 1 < exercise.targets.length;
-                giveFeedback(isWaypoint ? "waypoint" : "hit", isWaypoint);
+                giveFeedback("waypoint");
               }
             } else if (distanceFromCenter <= DEADZONE) {
               resetAttempt();
